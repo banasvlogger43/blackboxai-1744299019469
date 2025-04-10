@@ -1,20 +1,18 @@
-// Password visibility toggle
+// Main initialization
 document.addEventListener('DOMContentLoaded', function() {
+    // Password visibility toggle
     const togglePasswordButtons = document.querySelectorAll('.fa-eye');
-    
     togglePasswordButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const passwordInput = this.parentElement.previousElementSibling;
+            const passwordInput = this.closest('.relative').querySelector('input');
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
-            
-            // Toggle eye icon
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
     });
 
-    // Password strength indicator
+    // Password strength indicator function
     function initPasswordStrength() {
         const passwordInput = document.getElementById('password');
         if (!passwordInput) return;
@@ -73,14 +71,139 @@ document.addEventListener('DOMContentLoaded', function() {
                 strengthText.textContent = getStrengthText(strength);
                 strengthText.style.color = getStrengthColor(strength);
             }
+
+            // Check confirm password match
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            if (confirmPasswordInput && confirmPasswordInput.value) {
+                validatePasswordMatch(password, confirmPasswordInput.value);
+            }
         });
+
+        // Add confirm password validation
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        if (confirmPasswordInput) {
+            confirmPasswordInput.addEventListener('input', function() {
+                const passwordInput = document.getElementById('password');
+                validatePasswordMatch(passwordInput.value, this.value);
+            });
+        }
     }
 
-    // Initialize password strength on page load
-    document.addEventListener('DOMContentLoaded', initPasswordStrength);
+    function validatePasswordMatch(password, confirmPassword) {
+        const confirmPasswordInput = document.getElementById('confirm-password');
+        if (!confirmPasswordInput) return false;
+
+        const errorMessage = confirmPasswordInput.parentElement.querySelector('.error-message');
+        
+        if (password !== confirmPassword) {
+            confirmPasswordInput.classList.add('border-red-500');
+            if (!errorMessage) {
+                const message = document.createElement('p');
+                message.className = 'text-red-500 text-xs mt-1 error-message';
+                message.textContent = 'Passwords do not match';
+                confirmPasswordInput.parentElement.appendChild(message);
+            }
+            return false;
+        } else {
+            confirmPasswordInput.classList.remove('border-red-500');
+            if (errorMessage) {
+                errorMessage.remove();
+            }
+            return true;
+        }
+    }
+
+    // Initialize password strength for signup page
+    if (window.location.pathname.includes('signup.html')) {
+        initPasswordStrength();
+    }
+
+    // Form validation
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+            
+            // Basic form validation
+            const requiredFields = form.querySelectorAll('[required]');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    showError(field, 'This field is required');
+                } else {
+                    removeError(field);
+                }
+            });
+            
+            // Email validation
+            const emailInput = form.querySelector('input[type="email"]');
+            if (emailInput && emailInput.value.trim()) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    isValid = false;
+                    showError(emailInput, 'Please enter a valid email address');
+                }
+            }
+            
+            // Password validation for signup form
+            if (window.location.pathname.includes('signup.html')) {
+                const passwordInput = form.querySelector('#password');
+                const confirmPasswordInput = form.querySelector('#confirm-password');
+                if (passwordInput && confirmPasswordInput) {
+                    if (!validatePasswordMatch(passwordInput.value, confirmPasswordInput.value)) {
+                        isValid = false;
+                    }
+                }
+            }
+            
+            if (isValid) {
+                showSuccessMessage('Form submitted successfully!');
+                form.reset();
+                
+                // Reset password strength indicator
+                const strengthBars = document.querySelectorAll('.password-strength');
+                const strengthText = document.getElementById('password-strength-text');
+                if (strengthBars && strengthText) {
+                    strengthBars.forEach(bar => {
+                        bar.style.backgroundColor = '#e5e7eb';
+                    });
+                    strengthText.textContent = 'Weak';
+                    strengthText.style.color = '#e5e7eb';
+                }
+            }
+        });
+    });
 });
 
-// Get color based on password strength
+// Helper functions
+function showError(field, message) {
+    field.classList.add('border-red-500');
+    const existingError = field.parentElement.querySelector('.error-message');
+    if (!existingError) {
+        const errorMessage = document.createElement('p');
+        errorMessage.className = 'text-red-500 text-xs mt-1 error-message';
+        errorMessage.textContent = message;
+        field.parentElement.appendChild(errorMessage);
+    }
+}
+
+function removeError(field) {
+    field.classList.remove('border-red-500');
+    const errorMessage = field.parentElement.querySelector('.error-message');
+    if (errorMessage) {
+        errorMessage.remove();
+    }
+}
+
+function showSuccessMessage(message) {
+    const successMessage = document.createElement('div');
+    successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+    successMessage.textContent = message;
+    document.body.appendChild(successMessage);
+    setTimeout(() => successMessage.remove(), 3000);
+}
+
 function getStrengthColor(strength) {
     switch (strength) {
         case 1: return '#ef4444'; // red-500
@@ -91,7 +214,6 @@ function getStrengthColor(strength) {
     }
 }
 
-// Get text based on password strength
 function getStrengthText(strength) {
     switch (strength) {
         case 1: return 'Weak';
@@ -101,133 +223,3 @@ function getStrengthText(strength) {
         default: return 'Weak';
     }
 }
-
-// Mobile menu toggle
-document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.querySelector('.md\\:hidden button');
-    const mobileMenu = document.createElement('div');
-    mobileMenu.className = 'md:hidden';
-    mobileMenu.innerHTML = `
-        <div class="fixed inset-0 bg-gray-800 bg-opacity-75 z-40 transition-opacity hidden"></div>
-        <div class="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-xl z-50 transform translate-x-full transition-transform duration-300">
-            <div class="p-6">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900">Menu</h2>
-                    <button class="text-gray-600 hover:text-gray-900 focus:outline-none">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                <nav class="space-y-6">
-                    <a href="properties.html" class="block text-gray-600 hover:text-blue-600">Properties</a>
-                    <a href="#" class="block text-gray-600 hover:text-blue-600">About</a>
-                    <a href="#" class="block text-gray-600 hover:text-blue-600">Contact</a>
-                    <a href="login.html" class="block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 text-center">Login</a>
-                </nav>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(mobileMenu);
-    
-    const overlay = mobileMenu.querySelector('.bg-gray-800');
-    const menuPanel = mobileMenu.querySelector('.fixed.inset-y-0');
-    const closeButton = mobileMenu.querySelector('.fa-times').parentElement;
-    
-    function toggleMenu() {
-        overlay.classList.toggle('hidden');
-        menuPanel.classList.toggle('translate-x-full');
-    }
-    
-    if (mobileMenuButton) {
-        mobileMenuButton.addEventListener('click', toggleMenu);
-    }
-    
-    closeButton.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
-});
-
-// Form validation
-document.addEventListener('DOMContentLoaded', function() {
-    const forms = document.querySelectorAll('form');
-    
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic form validation
-            const requiredFields = form.querySelectorAll('[required]');
-            let isValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('border-red-500');
-                    
-                    // Add error message if it doesn't exist
-                    if (!field.nextElementSibling?.classList.contains('error-message')) {
-                        const errorMessage = document.createElement('p');
-                        errorMessage.className = 'text-red-500 text-xs mt-1 error-message';
-                        errorMessage.textContent = 'This field is required';
-                        field.parentElement.appendChild(errorMessage);
-                    }
-                } else {
-                    field.classList.remove('border-red-500');
-                    const errorMessage = field.nextElementSibling;
-                    if (errorMessage?.classList.contains('error-message')) {
-                        errorMessage.remove();
-                    }
-                }
-            });
-            
-            // Email validation
-            const emailInput = form.querySelector('input[type="email"]');
-            if (emailInput && emailInput.value.trim()) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(emailInput.value.trim())) {
-                    isValid = false;
-                    emailInput.classList.add('border-red-500');
-                    
-                    if (!emailInput.nextElementSibling?.classList.contains('error-message')) {
-                        const errorMessage = document.createElement('p');
-                        errorMessage.className = 'text-red-500 text-xs mt-1 error-message';
-                        errorMessage.textContent = 'Please enter a valid email address';
-                        emailInput.parentElement.appendChild(errorMessage);
-                    }
-                }
-            }
-            
-            // Password validation for signup form
-            const passwordInput = form.querySelector('#password');
-            const confirmPasswordInput = form.querySelector('#confirm-password');
-            if (passwordInput && confirmPasswordInput) {
-                if (passwordInput.value !== confirmPasswordInput.value) {
-                    isValid = false;
-                    confirmPasswordInput.classList.add('border-red-500');
-                    
-                    if (!confirmPasswordInput.nextElementSibling?.classList.contains('error-message')) {
-                        const errorMessage = document.createElement('p');
-                        errorMessage.className = 'text-red-500 text-xs mt-1 error-message';
-                        errorMessage.textContent = 'Passwords do not match';
-                        confirmPasswordInput.parentElement.appendChild(errorMessage);
-                    }
-                }
-            }
-            
-            if (isValid) {
-                // Show success message
-                const successMessage = document.createElement('div');
-                successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
-                successMessage.textContent = 'Form submitted successfully!';
-                document.body.appendChild(successMessage);
-                
-                // Remove success message after 3 seconds
-                setTimeout(() => {
-                    successMessage.remove();
-                }, 3000);
-                
-                // Reset form
-                form.reset();
-            }
-        });
-    });
-});
