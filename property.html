@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Downtown Apartment - RentEase</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        .image-gallery img {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .image-gallery img:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-home text-blue-600 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold text-gray-800">RentEase</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="properties.html" class="text-gray-600 hover:text-blue-600">Properties</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">About</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600">Contact</a>
+                    <a href="login.html" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Login</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Property Details Section -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Property Title and Price -->
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Luxury Downtown Apartment</h1>
+            <p class="text-xl text-gray-600">123 Main St, New York, NY</p>
+        </div>
+
+        <!-- Image Gallery -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 image-gallery">
+            <div class="md:col-span-2">
+                <img src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg" 
+                     alt="Main property view" 
+                     class="w-full h-[500px] object-cover rounded-lg">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/1571463/pexels-photo-1571463.jpeg" 
+                     alt="Living room" 
+                     class="w-full h-64 object-cover rounded-lg">
+            </div>
+            <div>
+                <img src="https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg" 
+                     alt="Kitchen" 
+                     class="w-full h-64 object-cover rounded-lg">
+            </div>
+        </div>
+
+        <!-- Property Details Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Main Details -->
+            <div class="md:col-span-2">
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold mb-4">Property Details</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <i class="fas fa-bed text-blue-600 text-2xl mb-2"></i>
+                            <p class="text-gray-600">2 Bedrooms</p>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <i class="fas fa-bath text-blue-600 text-2xl mb-2"></i>
+                            <p class="text-gray-600">2 Bathrooms</p>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <i class="fas fa-ruler-combined text-blue-600 text-2xl mb-2"></i>
+                            <p class="text-gray-600">1,200 sqft</p>
+                        </div>
+                        <div class="text-center p-4 bg-gray-50 rounded-lg">
+                            <i class="fas fa-car text-blue-600 text-2xl mb-2"></i>
+                            <p class="text-gray-600">1 Parking</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-4">Description</h3>
+                    <p class="text-gray-600 mb-6">
+                        This luxurious downtown apartment offers modern living at its finest. Located in the heart of the city, 
+                        this property features high-end finishes, spacious rooms, and stunning city views. The open-concept 
+                        living area is perfect for entertaining, while the gourmet kitchen includes stainless steel appliances 
+                        and granite countertops.
+                    </p>
+                    
+                    <h3 class="text-xl font-semibold mb-4">Amenities</h3>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">Air Conditioning</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">Heating</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">In-unit Laundry</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">Dishwasher</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">Gym Access</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span class="text-gray-600">24/7 Security</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Section -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-4">Location</h2>
+                    <div class="bg-gray-200 h-64 rounded-lg mb-4">
+                        <!-- Placeholder for map -->
+                        <div class="w-full h-full flex items-center justify-center">
+                            <p class="text-gray-600">Map View</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">
+                        Located in downtown, walking distance to restaurants, shops, and public transportation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="md:col-span-1">
+                <!-- Price Card -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <div class="text-center mb-6">
+                        <p class="text-3xl font-bold text-blue-600">$2,500/mo</p>
+                        <p class="text-gray-600">Available Now</p>
+                    </div>
+                    <button class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300 mb-4">
+                        Schedule a Tour
+                    </button>
+                    <button class="w-full border border-blue-600 text-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 transition duration-300">
+                        Contact Agent
+                    </button>
+                </div>
+
+                <!-- Agent Card -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="text-center mb-6">
+                        <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg" 
+                             alt="Agent photo" 
+                             class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                        <h3 class="text-xl font-semibold">Sarah Johnson</h3>
+                        <p class="text-gray-600">Senior Property Agent</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-blue-600 mr-2"></i>
+                            <span class="text-gray-600">+1 234 567 8900</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-blue-600 mr-2"></i>
+                            <span class="text-gray-600">sarah@rentease.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">RentEase</h3>
+                    <p class="text-gray-400">Find your perfect rental property with ease.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Properties</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone mr-2"></i>+1 234 567 8900</li>
+                        <li><i class="fas fa-envelope mr-2"></i>info@rentease.com</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>123 Business Ave, NY 10001</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 RentEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
